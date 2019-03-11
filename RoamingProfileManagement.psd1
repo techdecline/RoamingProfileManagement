@@ -21,19 +21,19 @@ ModuleVersion = '0.0.1'
 GUID = '88270dd3-101d-47ff-a30d-98692cf56cfc'
 
 # Autor dieses Moduls
-Author = 'schuchardt'
+Author = 'Cornelius Schuchardt'
 
 # Unternehmen oder Hersteller dieses Moduls
-CompanyName = 'Unbekannt'
+CompanyName = 'SoftEd Systems GmbH'
 
 # Urheberrechtserklärung für dieses Modul
-Copyright = '(c) 2019 schuchardt. Alle Rechte vorbehalten.'
+Copyright = '(c) 2019 Cornelius Schuchardt. All rights reserved.'
 
 # Beschreibung der von diesem Modul bereitgestellten Funktionen
-# Description = ''
+Description = 'PowerShell Module to automate setup and maintenance processes for roaming profile scenarios.'
 
 # Die für dieses Modul mindestens erforderliche Version des Windows PowerShell-Moduls
-# PowerShellVersion = ''
+PowerShellVersion = '4.0'
 
 # Der Name des für dieses Modul erforderlichen Windows PowerShell-Hosts
 # PowerShellHostName = ''
