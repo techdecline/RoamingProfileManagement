@@ -11,12 +11,15 @@
                     Silos = @(
                         @{
                             SiloName = "Silo-1"
+                            SiloUserGroup = "testuser"
                         }
                         @{
                             SiloName = "Silo-2"
+                            SiloUserGroup = "Users"
                         }
                         @{
                             SiloName = "Silo-3"
+                            SiloUserGroup = "Users"
                         }
                     )
                 }
@@ -25,12 +28,15 @@
                     Silos = @(
                         @{
                             SiloName = "Silo-1"
+                            SiloUserGroup = "testuser"
                         }
                         @{
                             SiloName = "Silo-2"
+                            SiloUserGroup = "Users"
                         }
                         @{
                             SiloName = "Silo-3"
+                            SiloUserGroup = "Users"
                         }
                     )
                 }
@@ -39,12 +45,15 @@
                     Silos = @(
                         @{
                             SiloName = "Silo-1"
+                            SiloUserGroup = "testuser"
                         }
                         @{
                             SiloName = "Silo-2"
+                            SiloUserGroup = "Users"
                         }
                         @{
                             SiloName = "Silo-3"
+                            SiloUserGroup = "Users"
                         }
                     )
                 }

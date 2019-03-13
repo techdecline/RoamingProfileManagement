@@ -12,17 +12,17 @@ configuration ProfileShare {
             Type = "Directory"
         }
 
+        cNtfsPermissionsInheritance "ProfileRoot_Inheritence" {
+            Path = $node.Partition + ":\" + $node.RootFolder
+            Enabled = $false
+            PreserveInherited = $true
+        }
+
         foreach ($farm in $node.Farms) {
             File "FarmRoot_$($farm.FarmName)" {
                 DependsOn = "[File]ProfileRoot"
                 DestinationPath = $node.Partition + ":\" + $node.RootFolder + "\" + $Farm.FarmName
                 Type =  "Directory"
-            }
-
-            cNtfsPermissionsInheritance "FarmRoot_$($farm.FarmName)" {
-                Path = $node.Partition + ":\" + $node.RootFolder + "\" + $Farm.FarmName
-                Enabled = "False"
-                PreserveInherited = "True"
             }
 
             xSmbShare "FarmShare_$($farm.FarmName)" {
@@ -36,6 +36,29 @@ configuration ProfileShare {
                     DependsOn = "[File]ProfileRoot"
                     DestinationPath = $node.Partition + ":\" + $node.RootFolder + "\" + $Farm.FarmName + "\" + $silo.SiloName
                     Type =  "Directory"
+                }
+
+                cNtfsPermissionEntry "SiloRoot_$($farm.FarmName)_$($silo.SiloName)" {
+                    Path = $node.Partition + ":\" + $node.RootFolder + "\" + $Farm.FarmName + "\" + $silo.SiloName
+                    DependsOn = "[File]SiloRoot_$($farm.FarmName)_$($silo.SiloName)"
+                    Principal = $silo.SiloUserGroup
+                    Ensure = 'Present'
+                    AccessControlInformation = @(
+                        cNtfsAccessControlInformation
+                        {
+                            AccessControlType = 'Allow'
+                            FileSystemRights = 'CreateDirectories','AppendData'
+                            Inheritance = 'ThisFolderOnly'
+                            NoPropagateInherit = $false
+                        }
+                        cNtfsAccessControlInformation
+                        {
+                            AccessControlType = 'Allow'
+                            FileSystemRights = 'ListDirectory','ReadData'
+                            Inheritance = 'ThisFolderOnly'
+                            NoPropagateInherit = $false
+                        }
+                    )
                 }
             }
         }
