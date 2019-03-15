@@ -3,8 +3,9 @@
         @{
             NodeName = "localhost"
             Role = "ProfileServer"
-            Partition = "E"
+            DriveLetter = "E"
             RootFolder = "Profiles"
+            AdminGroup = "Power Users"
             Farms = @(
                 @{
 					FarmName = "Test"
@@ -19,6 +20,10 @@
                         }
                         @{
                             SiloName = "Silo-3"
+                            SiloUserGroup = "Users"
+                        }
+                        @{
+                            SiloName = "Silo-4"
                             SiloUserGroup = "Users"
                         }
                     )
@@ -38,6 +43,10 @@
                             SiloName = "Silo-3"
                             SiloUserGroup = "Users"
                         }
+                        @{
+                            SiloName = "Silo-4"
+                            SiloUserGroup = "Users"
+                        }
                     )
                 }
                 @{
@@ -53,6 +62,10 @@
                         }
                         @{
                             SiloName = "Silo-3"
+                            SiloUserGroup = "Users"
+                        }
+                        @{
+                            SiloName = "Silo-4"
                             SiloUserGroup = "Users"
                         }
                     )

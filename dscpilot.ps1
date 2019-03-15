@@ -8,38 +8,54 @@ configuration ProfileShare {
         File ProfileRoot
         {
             Ensure = "Present"
-            DestinationPath = $node.Partition + ":\" + $node.RootFolder
+            DestinationPath = $node.Driveletter + ":\" + $node.RootFolder
             Type = "Directory"
         }
 
-        cNtfsPermissionsInheritance "ProfileRoot_Inheritence" {
-            Path = $node.Partition + ":\" + $node.RootFolder
+        cNtfsPermissionsInheritance "ProfileRoot_ACL_Inheritence" {
+            Path = $node.DriveLetter + ":\" + $node.RootFolder
             Enabled = $false
             PreserveInherited = $true
+        }
+
+        cNtfsPermissionEntry "ProfileRoot_ACL_Admins" {
+            Path = $node.Driveletter + ":\" + $node.RootFolder
+            DependsOn = "[File]ProfileRoot"
+            Principal = $node.AdminGroup
+            Ensure = 'Present'
+            AccessControlInformation = @(
+                cNtfsAccessControlInformation
+                {
+                    AccessControlType = 'Allow'
+                    FileSystemRights = 'FullControl'
+                    Inheritance = 'ThisFolderSubfoldersAndFiles'
+                    NoPropagateInherit = $false
+                }
+            )
         }
 
         foreach ($farm in $node.Farms) {
             File "FarmRoot_$($farm.FarmName)" {
                 DependsOn = "[File]ProfileRoot"
-                DestinationPath = $node.Partition + ":\" + $node.RootFolder + "\" + $Farm.FarmName
+                DestinationPath = $node.Driveletter + ":\" + $node.RootFolder + "\" + $Farm.FarmName
                 Type =  "Directory"
             }
 
             xSmbShare "FarmShare_$($farm.FarmName)" {
                 Name = $farm.FarmName + "$"
-                Path = $node.Partition + ":\" + $node.RootFolder + "\" + $Farm.FarmName
+                Path = $node.Driveletter + ":\" + $node.RootFolder + "\" + $Farm.FarmName
                 FullAccess = "Everyone"
             }
 
             foreach ($silo in $farm.Silos) {
                 File "SiloRoot_$($farm.FarmName)_$($silo.SiloName)" {
                     DependsOn = "[File]ProfileRoot"
-                    DestinationPath = $node.Partition + ":\" + $node.RootFolder + "\" + $Farm.FarmName + "\" + $silo.SiloName
+                    DestinationPath = $node.Driveletter + ":\" + $node.RootFolder + "\" + $Farm.FarmName + "\" + $silo.SiloName
                     Type =  "Directory"
                 }
 
                 cNtfsPermissionEntry "SiloRoot_$($farm.FarmName)_$($silo.SiloName)" {
-                    Path = $node.Partition + ":\" + $node.RootFolder + "\" + $Farm.FarmName + "\" + $silo.SiloName
+                    Path = $node.Driveletter + ":\" + $node.RootFolder + "\" + $Farm.FarmName + "\" + $silo.SiloName
                     DependsOn = "[File]SiloRoot_$($farm.FarmName)_$($silo.SiloName)"
                     Principal = $silo.SiloUserGroup
                     Ensure = 'Present'
