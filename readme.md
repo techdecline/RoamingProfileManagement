@@ -13,3 +13,7 @@ This project contains PowerShell resources to automate creation and maintenance 
 ## Remarks
 * This structure may change at a later date and may add templates for Home Drives, UEV Data and other central user data locations using Composite Resources. Therefore, always check change log when updating to later versions.
 * When you are already using DSC for server configuration using either Push or Pull model, you have to merge your existing config data and configurations with contents of this module.
+
+## Current Issues
+* Module Version is currently explicit and should be minimum version.
+* Script does not support other OS languages than English.
