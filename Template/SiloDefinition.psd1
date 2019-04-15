@@ -1,12 +1,11 @@
 @{
     AllNodes = @(
         @{
-            NodeName = "localhost"
-            Partition = "D"
-            RootFolder = "Profiles"
             Farm = @(
                 @{
-					FarmName = "Test"
+                    FarmName = "Test"
+                    NodeName = "localhost"
+                    Partition = "D"
                     Silo = @(
                         @{
                             SiloName = "Silo-1"
@@ -20,7 +19,9 @@
                     )
                 }
                 @{
-					FarmName = "Beta"
+                    FarmName = "Beta"
+                    NodeName = "localhost"
+                    Partition = "D"
                     Silo = @(
                         @{
                             SiloName = "Silo-1"
@@ -34,7 +35,9 @@
                     )
                 }
                 @{
-					FarmName = "Prod"
+                    FarmName = "Prod"
+                    NodeName = "localhost"
+                    Partition = "D"
                     Silo = @(
                         @{
                             SiloName = "Silo-1"
